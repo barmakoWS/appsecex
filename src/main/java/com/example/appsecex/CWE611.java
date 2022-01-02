@@ -34,6 +34,13 @@ public class CWE611 {
         return readXML(streamReader);
     }
 
+
+    @PostMapping(path = "/xml/safe2/XMLInputFactory", consumes = {MediaType.APPLICATION_XML_VALUE})
+    public String safeXmlInputFactory2(@RequestBody String xmlStr) {
+        XMLStreamReader streamReader = parseWithXMLInputFactory2(xmlStr);
+        return readXML(streamReader);
+    }
+
     private String readXML(XMLStreamReader streamReader) {
         try {
             if (streamReader != null) {
@@ -111,7 +118,7 @@ public class CWE611 {
             factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
 //            factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
 
-            return factory.createXMLStreamReader(new StringReader(xmlString));
+            return factory.createXMLStreamReader(new StringReader("constant"));
 
         } catch (XMLStreamException e) {
             logger.error("XMLStreamException 1 : " + e.getMessage());
